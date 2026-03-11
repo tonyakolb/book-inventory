@@ -1,0 +1,153 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model User {
+  id          Int         @id @default(autoincrement())
+  email       String      @unique
+  password    String
+  name        String
+  role        Role        @default(USER)
+  createdAt   DateTime    @default(now())
+
+  inventories Inventory[]
+  items       Item[]
+  likes       Like[]
+  comments    Comment[]
+
+  oauthProvider String?   // "google" | "github"
+  oauthId       String?   // id профиля у провайдера
+
+  accesses InventoryAccess[]
+}
+
+model Inventory {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String?
+  imageUrl    String?
+  isPublic    Boolean  @default(false)
+
+  creator     User     @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+  creatorId   Int
+
+  version     Int      @default(1)
+  createdAt   DateTime @default(now())
+
+  // Кастомные STRING поля
+  customString1Name  String?
+  customString1State Boolean @default(false)
+
+  customString2Name  String?
+  customString2State Boolean @default(false)
+
+  customString3Name  String?
+  customString3State Boolean @default(false)
+
+  // Кастомные INT поля
+  customInt1Name  String?
+  customInt1State Boolean @default(false)
+
+  customInt2Name  String?
+  customInt2State Boolean @default(false)
+
+  customInt3Name  String?
+  customInt3State Boolean @default(false)
+
+  // Кастомные BOOL поля
+  customBool1Name  String?
+  customBool1State Boolean @default(false)
+
+  customBool2Name  String?
+  customBool2State Boolean @default(false)
+
+  customBool3Name  String?
+  customBool3State Boolean @default(false)
+
+  accesses InventoryAccess[]
+
+  items    Item[]
+  comments Comment[]
+}
+
+model Item {
+  id           Int      @id @default(autoincrement())
+
+  inventory    Inventory @relation(fields: [inventoryId], references: [id], onDelete: Cascade)
+  inventoryId  Int
+
+  customId     String
+
+  createdBy    User     @relation(fields: [createdById], references: [id], onDelete: Cascade)
+  createdById  Int
+
+  version      Int      @default(1)
+  createdAt    DateTime @default(now())
+
+  // Значения кастомных полей
+  customString1 String?
+  customString2 String?
+  customString3 String?
+
+  customInt1 Int?
+  customInt2 Int?
+  customInt3 Int?
+
+  customBool1 Boolean?
+  customBool2 Boolean?
+  customBool3 Boolean?
+
+  likes    Like[]
+  comments Comment[]
+
+  @@unique([inventoryId, customId])
+}
+
+model Like {
+  id     Int  @id @default(autoincrement())
+
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
+
+  item   Item @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  itemId Int
+
+  @@unique([userId, itemId])
+}
+
+model Comment {
+  id          Int      @id @default(autoincrement())
+  content     String
+  createdAt   DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      Int
+
+  inventory   Inventory? @relation(fields: [inventoryId], references: [id], onDelete: Cascade)
+  inventoryId Int?
+
+  item        Item? @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  itemId      Int?
+}
+
+model InventoryAccess {
+  id          Int @id @default(autoincrement())
+
+  inventory   Inventory @relation(fields: [inventoryId], references: [id], onDelete: Cascade)
+  inventoryId Int
+
+  user        User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      Int
+
+  @@unique([inventoryId, userId])
+}
