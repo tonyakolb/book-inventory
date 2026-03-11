@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import api from "../api/axios";
 
 type User = {
@@ -19,7 +18,6 @@ const AuthContext = createContext<AuthContextType | null>(null);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
-  const navigate = useNavigate();
 
   const login = (token: string) => {
     localStorage.setItem("token", token);
@@ -29,7 +27,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const logout = () => {
     localStorage.removeItem("token");
     setUser(null);
-    navigate("/login")
+    window.location.href = "/login";
   };
 
   const loadUser = async () => {
