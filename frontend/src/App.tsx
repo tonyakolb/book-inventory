@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
@@ -14,7 +14,7 @@ import Admin from "./pages/Admin";
 
 function App() {
   return (
-    <BrowserRouter>
+    <>
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -28,8 +28,7 @@ function App() {
         <Route path="/items/:id" element={<Item />} />
         <Route path="/inventories/:id/settings" element={<InventorySettings />} />
         <Route path="/admin" element={<Admin />} />
-      </Routes>
-    </BrowserRouter>
+      </Routes></>
   );
 }
 
