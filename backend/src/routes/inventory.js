@@ -7,6 +7,10 @@ const prisma = new PrismaClient();
 router.post('/', auth, async (req, res) => {
   const { title, description } = req.body;
 
+  if (!title || title.trim() === "") {
+    return res.status(400).json({ message: "Title required" });
+  }
+
   const inventory = await prisma.inventory.create({
     data: {
       title,

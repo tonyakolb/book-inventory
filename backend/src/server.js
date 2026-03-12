@@ -11,7 +11,10 @@ const app = express();
 app.set("trust proxy", 1);
 const prisma = new PrismaClient();
 
-app.use(cors());
+app.use(cors({
+  origin: "https://book-inventory-1-53wg.onrender.com",
+  credentials: true
+}));
 app.use(express.json());
 app.use('/auth', require('./routes/auth'));
 app.use('/inventories', require('./routes/inventory'));

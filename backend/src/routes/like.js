@@ -4,7 +4,7 @@ const auth = require("../middleware/auth");
 
 const prisma = new PrismaClient();
 
-router.post("/:itemId", auth, async (req, res) => {
+rrouter.post("/:itemId", auth, async (req, res) => {
   const itemId = Number(req.params.itemId);
 
   const existing = await prisma.like.findFirst({
@@ -14,8 +14,15 @@ router.post("/:itemId", auth, async (req, res) => {
     }
   });
 
-  if (existing)
-    return res.status(400).json({ message: "Already liked" });
+  if (existing) {
+    await prisma.like.delete({
+      where: {
+        id: existing.id
+      }
+    });
+
+    return res.json({ liked: false });
+  }
 
   const like = await prisma.like.create({
     data: {
@@ -24,7 +31,7 @@ router.post("/:itemId", auth, async (req, res) => {
     }
   });
 
-  res.json(like);
+  res.json({ liked: true });
 });
 
 module.exports = router;

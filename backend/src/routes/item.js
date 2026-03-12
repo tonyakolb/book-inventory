@@ -9,6 +9,10 @@ router.post('/', auth, async (req, res) => {
     const inventoryId = Number(req.body.inventoryId);
     const customId = req.body.customId;
 
+    if (!customId) {
+      return res.status(400).json({ message: "customId required" });
+    }
+
     const inventory = await prisma.inventory.findUnique({
       where: { id: inventoryId },
       select: { creatorId: true, isPublic: true }
