@@ -98,20 +98,6 @@ app.get("/search", async (req, res) => {
   }
 });
 
-app.get("/me", auth, async (req, res) => {
-  const user = await prisma.user.findUnique({
-    where: { id: req.user.userId },
-    select: { 
-      id: true, 
-      name: true, 
-      email: true,
-      role: true
-    }
-  });
-
-  res.json(user);
-});
-
 const FRONTEND_OAUTH_REDIRECT =
   process.env.FRONTEND_OAUTH_REDIRECT || "http://localhost:5173/oauth";
 
