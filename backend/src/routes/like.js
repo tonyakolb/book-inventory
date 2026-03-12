@@ -4,7 +4,7 @@ const auth = require("../middleware/auth");
 
 const prisma = new PrismaClient();
 
-rrouter.post("/:itemId", auth, async (req, res) => {
+router.post("/:itemId", auth, async (req, res) => {
   const itemId = Number(req.params.itemId);
 
   const existing = await prisma.like.findFirst({
