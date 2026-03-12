@@ -1,12 +1,18 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import api from "../api/axios";
 
 type InventoryType = {
   id: number;
   title: string;
   description: string;
+
+  creator: {
+    id: number;
+    name: string;
+  };
 
   customString1State: boolean;
   customString1Name: string | null;
@@ -20,6 +26,7 @@ type InventoryType = {
 
 export default function Inventory() {
   const { id } = useParams();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const [inventory, setInventory] = useState<InventoryType | null>(null);
   const [items, setItems] = useState<any[]>([]);
@@ -92,21 +99,24 @@ export default function Inventory() {
     <div className="container mt-4">
       <h2>{inventory.title}</h2>
       <p className="text-muted">{inventory.description}</p>
-      <button
-        className="btn btn-danger mb-3"
-        onClick={async () => {
-          if (!confirm("Delete this inventory?")) return;
+      {user?.id === inventory.creator.id && (
+        < button
+          className="btn btn-danger mb-3"
+          onClick={async () => {
+            if (!confirm("Delete this inventory?")) return;
 
-          try {
-            await api.delete(`/inventories/${id}`);
-            navigate("/inventories");
-          } catch {
-            alert("Error deleting inventory");
-          }
-        }}
-      >
-        Delete Inventory
-      </button>
+            try {
+              await api.delete(`/inventories/${id}`);
+              navigate("/inventories");
+            } catch {
+              alert("Error deleting inventory");
+            }
+          }}
+        >
+          Delete Inventory
+        </button>)
+      }
+
       <hr />
 
       <h4>Items</h4>
