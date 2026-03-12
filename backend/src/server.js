@@ -8,6 +8,7 @@ const jwt = require("jsonwebtoken");
 const session = require("express-session");
 
 const app = express();
+app.set("trust proxy", 1);
 const prisma = new PrismaClient();
 
 app.use(cors());
