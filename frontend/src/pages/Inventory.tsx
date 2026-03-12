@@ -92,7 +92,21 @@ export default function Inventory() {
     <div className="container mt-4">
       <h2>{inventory.title}</h2>
       <p className="text-muted">{inventory.description}</p>
+      <button
+        className="btn btn-danger mb-3"
+        onClick={async () => {
+          if (!confirm("Delete this inventory?")) return;
 
+          try {
+            await api.delete(`/inventories/${id}`);
+            navigate("/inventories");
+          } catch {
+            alert("Error deleting inventory");
+          }
+        }}
+      >
+        Delete Inventory
+      </button>
       <hr />
 
       <h4>Items</h4>

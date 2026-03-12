@@ -75,7 +75,7 @@ export default function Login() {
 
       <a
         className="btn btn-outline-dark w-100"
-        href="https://book-inventory-ssp6n.onrender.com/auth/github"
+        href="https://book-inventory-sp6n.onrender.com/auth/github"
       >
         Login with GitHub
       </a>
