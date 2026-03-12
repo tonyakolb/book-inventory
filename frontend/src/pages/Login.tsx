@@ -68,14 +68,14 @@ export default function Login() {
 
       <a
         className="btn btn-outline-danger w-100 mb-2"
-        href={`${import.meta.env.VITE_API_URL}/auth/google`}
+        href="https://book-inventory-1-53wg.onrender.com/auth/google"
       >
         Login with Google
       </a>
 
       <a
         className="btn btn-outline-dark w-100"
-        href={`${import.meta.env.VITE_API_URL}/auth/github`}
+        href="https://book-inventory-1-53wg.onrender.com/auth/github"
       >
         Login with GitHub
       </a>
