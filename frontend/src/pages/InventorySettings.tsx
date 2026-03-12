@@ -43,7 +43,6 @@ export default function InventorySettings() {
   const handleSave = async () => {
     try {
       const res = await api.put(`/inventories/${id}`, form);
-      //   setInventory(res.data);
       setForm(res.data);
       alert("Saved successfully");
     } catch (err: any) {
@@ -65,7 +64,7 @@ export default function InventorySettings() {
       });
 
       setNewUserId("");
-      load(); // перезагружаем список
+      load();
     } catch {
       alert("Error adding access");
     }

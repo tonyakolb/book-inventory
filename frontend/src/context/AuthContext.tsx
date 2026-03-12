@@ -32,7 +32,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const loadUser = async () => {
     try {
-      const res = await api.get("/me");
+      const res = await api.get("/auth/me");
       setUser(res.data);
     } catch {
       logout();

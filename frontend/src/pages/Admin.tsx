@@ -13,24 +13,24 @@ export default function Admin() {
     const [users, setUsers] = useState<UserType[]>([]);
     const navigate = useNavigate();
 
-    // const checkAccess = async () => {
-    //     try {
-    //         const res = await api.get("/me");
+    const checkAccess = async () => {
+        try {
+            const res = await api.get("/auth/me");
+            console.log("ME:", res.data);
 
-    //         if (res.data.role !== "ADMIN") {
-    //             navigate("/");
-    //             return;
-    //         }
+            if (res.data.role !== "ADMIN") {
+                console.log("NOT ADMIN");
+                navigate("/");
+                return;
+            }
 
-    //         load();
-    //     } catch {
-    //         navigate("/login");
-    //     }
-    // };
-
-    useEffect(() => {
-        checkAccess();
-    }, []);
+            console.log("IS ADMIN");
+            load();
+        } catch (err) {
+            console.log("ERROR:", err);
+            navigate("/login");
+        }
+    };
 
     const load = async () => {
         const res = await api.get("/admin/users");
@@ -48,24 +48,9 @@ export default function Admin() {
         load();
     };
 
-    const checkAccess = async () => {
-        try {
-            const res = await api.get("/me");
-            console.log("ME:", res.data);
-
-            if (res.data.role !== "ADMIN") {
-                console.log("NOT ADMIN");
-                navigate("/");
-                return;
-            }
-
-            console.log("IS ADMIN");
-            load();
-        } catch (err) {
-            console.log("ERROR:", err);
-            navigate("/login");
-        }
-    };
+    useEffect(() => {
+        checkAccess();
+    }, []);
 
     return (
         <div className="container mt-4">

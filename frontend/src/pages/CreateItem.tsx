@@ -17,7 +17,7 @@ export default function CreateItem() {
   };
 
   useEffect(() => {
-    api.get(`inventories/${id}`)
+    api.get(`/inventories/${id}`)
       .then(res => setInventory(res.data));
   }, [id]);
 
@@ -34,8 +34,6 @@ export default function CreateItem() {
   };
 
   if (!inventory) return <div>Loading...</div>
-
-  console.log("INVENTORY:", inventory);
 
   return (
     <div className="container mt-4" style={{ maxWidth: 600 }}>

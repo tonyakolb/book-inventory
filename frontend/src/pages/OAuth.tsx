@@ -13,8 +13,10 @@ export default function OAuth() {
     if (token) {
       login(token);
       navigate("/");
+    } else {
+      navigate("/login");
     }
-  }, []);
+  }, [login, navigate]);
 
   return <div>Logging in...</div>;
 }

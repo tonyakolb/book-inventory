@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://book-inventory-sp6n.onrender.com/",
+  baseURL: "https://book-inventory-sp6n.onrender.com",
 });
 
 api.interceptors.request.use((config) => {

@@ -52,9 +52,9 @@ export default function Inventory() {
   }
 
   const handleDelete = async () => {
-    for (const id of selected) {
-      await api.delete(`/items/${id}`);
-    }
+    await Promise.all(
+      selected.map(id => api.delete(`/items/${id}`))
+    );
     setSelected([]);
     loadItems();
   };
@@ -182,7 +182,7 @@ export default function Inventory() {
               {inventory?.customBool1State && (
                 <td>{item.customBool1 ? "Yes" : "No"}</td>
               )}
-              <td>{item.createdById}</td>
+              <td>User #{item.createdById}</td>
               <td>{item._count?.likes ?? 0}</td>
 
               <td>
