@@ -74,6 +74,10 @@ router.get("/", async (req, res) => {
     include: {
       _count: {
         select: { likes: true }
+      },
+      likes: {
+        where: { userId: req.user?.userId },
+        select: { id: true }
       }
     }
   });

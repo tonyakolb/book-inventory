@@ -31,7 +31,7 @@ router.post("/:itemId", auth, async (req, res) => {
     }
   });
 
-  res.json({ liked: true });
+  res.json({ message: "Liked", like });
 });
 
 module.exports = router;

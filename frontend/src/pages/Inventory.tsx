@@ -86,12 +86,17 @@ export default function Inventory() {
 
   const handleLike = async (itemId: number) => {
     try {
-      await api.post(`/likes/${itemId}`);
-      loadItems();
-    } catch (err: any) {
-      if (err.response?.status === 400) {
-        toast.info("Already liked");
+      const res = await api.post(`/likes/${itemId}`);
+
+      if (res.data.message === "Liked") {
+        toast.success("Liked");
+      } else {
+        toast.info("Unliked");
       }
+
+      loadItems();
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -215,10 +220,11 @@ export default function Inventory() {
 
               <td>
                 <button
-                  className="btn btn-sm btn-outline-dark"
+                  className={`btn btn-sm ${item.likes?.length ? "btn-danger" : "btn-outline-dark"
+                    }`}
                   onClick={() => handleLike(item.id)}
                 >
-                  Like
+                  {item.likes?.length ? "Unlike" : "Like"}
                 </button>
               </td>
             </tr>
