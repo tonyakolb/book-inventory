@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import Loader from "../components/Loader";
 import api from "../api/axios";
 
 type ItemType = {
@@ -62,7 +63,7 @@ export default function Item() {
   };
 
   if (!item || !inventory)
-    return <div className="container mt-4">Loading...</div>;
+    return <Loader />
 
   return (
     <div className="container mt-4" style={{ maxWidth: 600 }}>

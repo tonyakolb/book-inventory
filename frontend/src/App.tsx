@@ -12,6 +12,7 @@ import Item from "./pages/Item";
 import InventorySettings from "./pages/InventorySettings";
 import Admin from "./pages/Admin";
 import PrivateRoute from "./components/PrivateRoute";
+import NotFound from "./components/NotFound";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route path="/items/:id" element={<PrivateRoute><Item /></PrivateRoute>} />
         <Route path="/inventories/:id/settings" element={<PrivateRoute><InventorySettings /></PrivateRoute>} />
         <Route path="/admin" element={<PrivateRoute><Admin /></PrivateRoute>} />
+        <Route path="*" element={<NotFound />} />
       </Routes></>
   );
 }

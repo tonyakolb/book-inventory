@@ -1,5 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import Loader from "../components/Loader";
 import api from "../api/axios";
 
 export default function CreateItem() {
@@ -33,7 +34,7 @@ export default function CreateItem() {
     navigate(`/inventories/${id}`);
   };
 
-  if (!inventory) return <div>Loading...</div>
+  if (!inventory) return <Loader />
 
   return (
     <div className="container mt-4" style={{ maxWidth: 600 }}>

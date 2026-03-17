@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import Loader from "../components/Loader";
 import api from "../api/axios";
 
 type InventoryType = {
@@ -39,7 +40,7 @@ export default function InventorySettings() {
     setAccessList(accessRes.data);
   };
 
-  if (!form) return <div className="container mt-4">Loading...</div>;
+  if (!form) return <Loader />
 
   const handleSave = async () => {
     try {

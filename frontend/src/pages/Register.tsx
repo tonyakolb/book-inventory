@@ -30,7 +30,7 @@ export default function Register() {
       });
 
       login(res.data.token);
-      navigate("/");
+      navigate("/", { replace: true });
     } catch (err: any) {
       setError(err.response?.data?.message || "Registration failed");
     }

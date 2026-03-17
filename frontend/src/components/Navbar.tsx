@@ -26,6 +26,7 @@ export default function Navbar() {
                 Admin
               </Link>
             )}
+
             <button className="btn btn-outline-light btn-sm" onClick={logout}>
               Logout
             </button>

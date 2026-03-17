@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { toast } from "react-toastify";
+import Loader from "../components/Loader";
 import api from "../api/axios";
 
 type InventoryType = {
@@ -94,7 +95,7 @@ export default function Inventory() {
     }
   };
 
-  if (!inventory) return <div className="container mt-4">Loading...</div>;
+  if (!inventory) return <Loader />;
 
   return (
     <div className="container mt-4">

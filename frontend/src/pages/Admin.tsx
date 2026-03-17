@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import api from "../api/axios";
 
 type UserType = {
@@ -39,12 +40,14 @@ export default function Admin() {
 
     const toggleRole = async (id: number) => {
         await api.patch(`/admin/users/${id}/role`);
+        toast.success("User role updated");
         load();
     };
 
     const deleteUser = async (id: number) => {
         if (!confirm("Delete this user?")) return;
         await api.delete(`/admin/users/${id}`);
+        toast.success("User deleted");
         load();
     };
 

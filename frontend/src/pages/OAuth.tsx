@@ -12,9 +12,10 @@ export default function OAuth() {
 
     if (token) {
       login(token);
-      navigate("/");
+      window.history.replaceState({}, document.title, "/")
+      navigate("/", { replace: true });
     } else {
-      navigate("/login");
+      navigate("/login", { replace: true });
     }
   }, [login, navigate]);
 
