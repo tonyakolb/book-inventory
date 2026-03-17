@@ -1,5 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import api from "../api/axios";
 
 type ItemType = {
@@ -27,17 +28,17 @@ export default function Item() {
   }, [id]);
 
   const load = async () => {
-  const res = await api.get<ItemType>(`/items/${id}`);
-  const itemData = res.data;
+    const res = await api.get<ItemType>(`/items/${id}`);
+    const itemData = res.data;
 
-  setItem(itemData);
-  setCustomString1(itemData.customString1 || "");
-  setCustomInt1(itemData.customInt1 ?? null);
-  setCustomBool1(itemData.customBool1 ?? false);
+    setItem(itemData);
+    setCustomString1(itemData.customString1 || "");
+    setCustomInt1(itemData.customInt1 ?? null);
+    setCustomBool1(itemData.customBool1 ?? false);
 
-  const inv = await api.get(`/inventories/${itemData.inventoryId}`);
-  setInventory(inv.data);
-};
+    const inv = await api.get(`/inventories/${itemData.inventoryId}`);
+    setInventory(inv.data);
+  };
 
   const handleSave = async () => {
     try {
@@ -49,13 +50,13 @@ export default function Item() {
       });
 
       setItem(res.data);
-      alert("Saved successfully");
+      toast.success("Item saved");
     } catch (err: any) {
       if (err.response?.status === 409) {
-        alert("Conflict detected. Reloading latest version...");
+        toast.warning("Conflict detected, reloading...");
         load();
       } else {
-        alert("Error saving item");
+        toast.error("Error saving item");
       }
     }
   };

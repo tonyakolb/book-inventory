@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { toast } from "react-toastify";
 import api from "../api/axios";
 
 type InventoryType = {
@@ -88,7 +89,7 @@ export default function Inventory() {
       loadItems();
     } catch (err: any) {
       if (err.response?.status === 400) {
-        alert("Already liked");
+        toast.info("Already liked");
       }
     }
   };
@@ -109,7 +110,7 @@ export default function Inventory() {
               await api.delete(`/inventories/${id}`);
               navigate("/inventories");
             } catch {
-              alert("Error deleting inventory");
+              toast.error("Error deleting inventory");
             }
           }}
         >

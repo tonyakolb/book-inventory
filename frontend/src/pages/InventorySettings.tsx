@@ -1,5 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import api from "../api/axios";
 
 type InventoryType = {
@@ -44,13 +45,13 @@ export default function InventorySettings() {
     try {
       const res = await api.put(`/inventories/${id}`, form);
       setForm(res.data);
-      alert("Saved successfully");
+      toast.success("Inventory saved");
     } catch (err: any) {
       if (err.response?.status === 409) {
-        alert("Conflict detected. Reloading latest version...");
+        toast.warning("Conflict detected. Reloading latest version...");
         load();
       } else {
-        alert("Error saving inventory");
+        toast.error("Error saving inventory");
       }
     }
   };
@@ -66,7 +67,7 @@ export default function InventorySettings() {
       setNewUserId("");
       load();
     } catch {
-      alert("Error adding access");
+      toast.error("Error adding access");
     }
   };
 

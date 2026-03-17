@@ -13,13 +13,19 @@ export default function Navbar() {
       <Link className="nav-link text-white" to="/inventories">
         Inventories
       </Link>
-      
+
       <div className="ms-auto d-flex align-items-center gap-3">
         {user ? (
           <>
             <span className="text-white">
               {user.name} ({user.role})
             </span>
+
+            {user.role === "ADMIN" && (
+              <Link className="btn btn-warning btn-sm" to="/admin">
+                Admin
+              </Link>
+            )}
             <button className="btn btn-outline-light btn-sm" onClick={logout}>
               Logout
             </button>
