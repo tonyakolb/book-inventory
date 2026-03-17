@@ -130,12 +130,14 @@ export default function Inventory() {
         Add Item
       </button>
 
-      <button
-        className="btn btn-outline-secondary mb-3"
-        onClick={() => navigate(`/inventories/${id}/settings`)}
-      >
-        Settings
-      </button>
+      {user?.id === inventory.creator.id && (
+        <button
+          className="btn btn-outline-secondary mb-3"
+          onClick={() => navigate(`/inventories/${id}/settings`)}
+        >
+          Settings
+        </button>
+      )}
 
       <button
         className="btn btn-danger mb-3"

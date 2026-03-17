@@ -44,6 +44,7 @@ export default function Item() {
   const handleSave = async () => {
     try {
       const res = await api.put(`/items/${id}`, {
+        customId: item.customId,
         customString1,
         customInt1,
         customBool1,
