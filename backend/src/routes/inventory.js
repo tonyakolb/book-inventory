@@ -15,7 +15,13 @@ router.post('/', auth, async (req, res) => {
     data: {
       title,
       description,
-      creatorId: req.user.userId
+      creatorId: req.user.userId,
+      customString1State,
+      customString1Name,
+      customInt1State,
+      customInt1Name,
+      customBool1State,
+      customBool1Name
     }
   });
 
